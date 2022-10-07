@@ -3,11 +3,16 @@ import * as yup from 'yup';
 import { MainTitle, Input, Button } from './ContactForm.styled';
 import { nanoid } from 'nanoid';
 import propTypes from 'prop-types';
+import { useDispatch, useSelector } from 'react-redux';
+import { addContact } from 'redux/store';
 
-export const ContactForm = props => {
+export const ContactForm = () => {
   const initialValues = { name: '', number: '' };
+  const RegExp = /^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$/;
+  const message =
+    "Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan";
   const yupContactForm = yup.object().shape({
-    name: yup.string().required().min(3).max(20),
+    name: yup.string().matches(RegExp, message).required().min(3).max(20),
     number: yup
       .number()
       .min(5)
@@ -16,10 +21,22 @@ export const ContactForm = props => {
       .integer("A phone number can't include a decimal point")
       .required('A phone number is required'),
   });
+
+  const dispatch = useDispatch();
+  const contacts = useSelector(state => state.items);
+
   const getValues = (val, { resetForm }) => {
-    val.id = nanoid();
-    props.newUserData(val);
-    resetForm();
+    const noRepitData = contacts.filter(
+      item =>
+        item.name.toLowerCase() === val.name.toLowerCase() ||
+        item.number === val.number
+    );
+    if (noRepitData.length < 1) {
+      val.id = nanoid();
+      dispatch(addContact(val));
+      resetForm();
+    } else
+      alert(`${val.name} User or number ${val.number} alredy in contacts `);
   };
   return (
     <>
@@ -40,7 +57,7 @@ export const ContactForm = props => {
             <br />
             Number
             <br />
-            <Input type="tel" name="number" placeholder="+111 11 11"></Input>
+            <Input type="tel" name="number" placeholder="+111 11 11 11"></Input>
           </label>
           <ErrorMessage name="number" />
           <br />

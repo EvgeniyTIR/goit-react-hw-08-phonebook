@@ -1,17 +1,18 @@
 import React from 'react';
-import propTypes from 'prop-types';
-const FilerChange = props => {
+import { useDispatch } from 'react-redux';
+import { filterContacts } from 'redux/store';
+
+const FilerChange = () => {
+  const dispatch = useDispatch();
   return (
     <>
       <p>Find contacts by name</p>
       <label>
         <input
-          contactlist={props.contactslist}
-          onChange={props.onChange}
-          value={props.value}
           type="text"
           name="filter"
           placeholder="Search Name"
+          onChange={e => dispatch(filterContacts(e.target.value))}
         />
       </label>
     </>
@@ -19,9 +20,3 @@ const FilerChange = props => {
 };
 
 export default FilerChange;
-
-FilerChange.propTypes = {
-  contactlist: propTypes.array.isRequired,
-  onChange: propTypes.func.isRequired,
-  value: propTypes.string.isRequired,
-};

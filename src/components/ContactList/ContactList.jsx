@@ -1,6 +1,18 @@
 import { Button, Title } from 'components/ContactList/ConstactList.styled';
+import { deleteContact } from 'redux/store';
+import { useSelector, useDispatch } from 'react-redux';
 
-export const ContactList = ({ data, children, deleteContact }) => {
+export const ContactList = ({ children }) => {
+  const contacts = useSelector(state => state.items);
+  const filter = useSelector(state => state.filter);
+  const dispatch = useDispatch();
+
+  if (contacts.lendth === 0) return;
+
+  const data =
+    filter === ''
+      ? contacts
+      : contacts.filter(item => item.name.includes(filter));
   return (
     <>
       <Title>Contacts</Title>
@@ -13,7 +25,7 @@ export const ContactList = ({ data, children, deleteContact }) => {
             <Button
               type="button"
               id={item.number}
-              onClick={() => deleteContact(item.id)}
+              onClick={() => dispatch(deleteContact(item.id))}
             >
               Delete
             </Button>
