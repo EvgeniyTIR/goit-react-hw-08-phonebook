@@ -1,11 +1,14 @@
 import { Button, Title } from 'components/ContactList/ConstactList.styled';
-import { deleteContact } from 'redux/store';
 import { useSelector, useDispatch } from 'react-redux';
+import { deleteContact } from 'redux/constactAPI';
+import { selectContacts, selectFilter } from 'redux/selectors';
+import { Box } from 'components/Box';
 
 export const ContactList = ({ children }) => {
-  const contacts = useSelector(state => state.items);
-  const filter = useSelector(state => state.filter);
   const dispatch = useDispatch();
+
+  const contacts = useSelector(selectContacts);
+  const filter = useSelector(selectFilter);
 
   if (contacts.lendth === 0) return;
 
@@ -19,9 +22,9 @@ export const ContactList = ({ children }) => {
       {children}
       <ul>
         {data.map(item => (
-          <li key={item.id}>
+          <Box display="flex" justifyContent="space-between" key={item.id}>
             {' '}
-            {item.name}: {item.number}
+            {item.name}: {item.phone}
             <Button
               type="button"
               id={item.number}
@@ -29,7 +32,7 @@ export const ContactList = ({ children }) => {
             >
               Delete
             </Button>
-          </li>
+          </Box>
         ))}
       </ul>
     </>

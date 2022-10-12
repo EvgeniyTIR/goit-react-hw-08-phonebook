@@ -4,7 +4,8 @@ import { MainTitle, Input, Button } from './ContactForm.styled';
 import { nanoid } from 'nanoid';
 import propTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
-import { addContact } from 'redux/store';
+import { addContact } from 'redux/constactAPI';
+import { selectContacts } from 'redux/selectors';
 
 export const ContactForm = () => {
   const initialValues = { name: '', number: '' };
@@ -23,13 +24,13 @@ export const ContactForm = () => {
   });
 
   const dispatch = useDispatch();
-  const contacts = useSelector(state => state.items);
+  const contacts = useSelector(selectContacts);
 
   const getValues = (val, { resetForm }) => {
     const noRepitData = contacts.filter(
       item =>
         item.name.toLowerCase() === val.name.toLowerCase() ||
-        item.number === val.number
+        item.phone === val.number
     );
     if (noRepitData.length < 1) {
       val.id = nanoid();

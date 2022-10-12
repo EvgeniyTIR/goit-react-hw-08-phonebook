@@ -1,6 +1,6 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
-import { filterContacts } from 'redux/store';
+import { setFilter } from 'redux/store';
 
 const FilerChange = () => {
   const dispatch = useDispatch();
@@ -12,7 +12,7 @@ const FilerChange = () => {
           type="text"
           name="filter"
           placeholder="Search Name"
-          onChange={e => dispatch(filterContacts(e.target.value))}
+          onChange={e => dispatch(setFilter(e.target.value))}
         />
       </label>
     </>
