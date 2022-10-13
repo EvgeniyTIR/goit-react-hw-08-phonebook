@@ -7,7 +7,7 @@ import FilerChange from './Filter/FilerChange';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
 import { fetchContacts } from 'redux/constactAPI';
-import { selectIsLoading, selectError } from 'redux/selectors';
+import { selectIsLoading, selectError } from 'redux/phonebook/selectors';
 
 export function App() {
   const dispatch = useDispatch();

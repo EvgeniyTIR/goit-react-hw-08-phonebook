@@ -1,7 +1,7 @@
 import { Button, Title } from 'components/ContactList/ConstactList.styled';
 import { useSelector, useDispatch } from 'react-redux';
 import { deleteContact } from 'redux/constactAPI';
-import { selectContacts, selectFilter } from 'redux/selectors';
+import { selectContacts, selectFilter } from 'redux/phonebook/selectors';
 import { Box } from 'components/Box';
 
 export const ContactList = ({ children }) => {

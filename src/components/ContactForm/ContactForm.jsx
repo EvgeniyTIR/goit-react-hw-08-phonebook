@@ -5,7 +5,7 @@ import { nanoid } from 'nanoid';
 import propTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
 import { addContact } from 'redux/constactAPI';
-import { selectContacts } from 'redux/selectors';
+import { selectContacts } from 'redux/phonebook/selectors';
 
 export const ContactForm = () => {
   const initialValues = { name: '', number: '' };

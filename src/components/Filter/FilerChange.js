@@ -1,6 +1,6 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
-import { setFilter } from 'redux/store';
+import { setFilter } from 'redux/phonebook/store';
 
 const FilerChange = () => {
   const dispatch = useDispatch();
